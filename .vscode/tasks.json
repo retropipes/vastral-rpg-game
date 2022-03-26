@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/VastralRPG.Game.csproj",
+                "${workspaceFolder}/VastralRPG.Game/VastralRPG.Game.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/VastralRPG.Game.csproj",
+                "${workspaceFolder}/VastralRPG.Game/VastralRPG.Game.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/VastralRPG.Game.csproj"
+                "${workspaceFolder}/VastralRPG.Game/VastralRPG.Game.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
