@@ -23,4 +23,20 @@ public class NavMenuTests
         expected = @"<div class=""collapse"" blazor:onclick=""2""";
         Assert.Contains(expected, cut.Markup);
     }
+
+    [Fact]
+    public void ToggleNavMenu()
+    {
+        // arrange
+        using var ctx = new TestContext();
+        ctx.Services.AddSingleton<NavigationManager>(new MockNavigationManager());
+
+        // act
+        var cut = ctx.RenderComponent<NavMenu>();
+        cut.Find(".navbar-toggler").Click();
+
+        // assert
+        var expected = @"<div blazor:onclick=""2""";
+        Assert.Contains(expected, cut.Markup);
+    }
 }
