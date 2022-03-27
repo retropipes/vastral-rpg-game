@@ -38,7 +38,7 @@ public class GameSession : IGameSession
         var pointyStick = ItemFactory.CreateGameItem(1001);
         if (pointyStick != null)
         {
-            CurrentPlayer.Inventory.Add(pointyStick);
+            CurrentPlayer.Inventory.AddItem(pointyStick);
         }
     }
 
