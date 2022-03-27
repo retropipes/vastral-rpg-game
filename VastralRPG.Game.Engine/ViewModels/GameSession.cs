@@ -150,18 +150,19 @@ public class GameSession : IGameSession
             if (!CurrentPlayer.Quests.Any(q => q.PlayerQuest.Id == quest.Id))
             {
                 CurrentPlayer.Quests.Add(new QuestStatus(quest));
-
                 var messageLines = new List<string>
                     {
                         quest.Description,
                         "Items to complete the quest:"
                     };
-
                 foreach (ItemQuantity q in quest.ItemsToComplete)
                 {
-                    messageLines.Add($"{ItemFactory.CreateGameItem(q.ItemId).Name} (x{q.Quantity})");
+                    var item = ItemFactory.CreateGameItem(q.ItemId);
+                    if (item != null)
+                    {
+                        messageLines.Add($"{item.Name} (x{q.Quantity})");
+                    }
                 }
-
                 AddDisplayMessage($"Quest Added - {quest.Name}", messageLines);
             }
         }
