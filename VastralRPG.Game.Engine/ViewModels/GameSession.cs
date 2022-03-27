@@ -6,6 +6,8 @@ public class GameSession : IGameSession
 {
     public Player CurrentPlayer { get; set; }
 
+    public Location CurrentLocation { get; private set; }
+
     public GameSession()
     {
         this.CurrentPlayer = new Player
@@ -16,6 +18,14 @@ public class GameSession : IGameSession
             Gold = 1000,
             ExperiencePoints = 0,
             Level = 1
+        };
+        this.CurrentLocation = new Location
+        {
+            Name = "Home",
+            XCoordinate = 0,
+            YCoordinate = -1,
+            Description = "This is your house.",
+            ImageName = "/images/locations/Home.png"
         };
     }
 
