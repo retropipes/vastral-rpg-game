@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VastralRPG.Game", "VastralR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VastralRPG.Game.Tests", "VastralRPG.Game.Tests\VastralRPG.Game.Tests.csproj", "{728856C1-DCFB-4A2C-97E2-4AEC731C6A6F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VastralRPG.Game.Engine", "VastralRPG.Game.Engine\VastralRPG.Game.Engine.csproj", "{E2BA8155-0E00-4A30-AA7A-AEB1B44F773B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VastralRPG.Game.Engine.Tests", "VastralRPG.Game.Engine.Tests\VastralRPG.Game.Engine.Tests.csproj", "{90868AF2-A787-422F-8A6A-F126A6DD195C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{728856C1-DCFB-4A2C-97E2-4AEC731C6A6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{728856C1-DCFB-4A2C-97E2-4AEC731C6A6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{728856C1-DCFB-4A2C-97E2-4AEC731C6A6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2BA8155-0E00-4A30-AA7A-AEB1B44F773B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2BA8155-0E00-4A30-AA7A-AEB1B44F773B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2BA8155-0E00-4A30-AA7A-AEB1B44F773B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2BA8155-0E00-4A30-AA7A-AEB1B44F773B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90868AF2-A787-422F-8A6A-F126A6DD195C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90868AF2-A787-422F-8A6A-F126A6DD195C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90868AF2-A787-422F-8A6A-F126A6DD195C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90868AF2-A787-422F-8A6A-F126A6DD195C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
