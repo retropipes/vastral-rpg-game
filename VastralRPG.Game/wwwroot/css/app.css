@@ -60,3 +60,15 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 25vh;
+    overflow: auto;
+}
+ 
+.table-wrapper-scroll-y {
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: block;
+}

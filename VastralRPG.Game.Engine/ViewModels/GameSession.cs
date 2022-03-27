@@ -35,6 +35,11 @@ public class GameSession : IGameSession
         this.currentWorld = WorldFactory.CreateWorld();
         this.Movement = new MovementUnit(this.currentWorld);
         this.CurrentLocation = this.Movement.CurrentLocation;
+        var pointyStick = ItemFactory.CreateGameItem(1001);
+        if (pointyStick != null)
+        {
+            CurrentPlayer.Inventory.Add(pointyStick);
+        }
     }
 
     public void OnLocationChanged(Location newLocation) =>
