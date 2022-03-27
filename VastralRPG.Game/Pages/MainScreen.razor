@@ -19,6 +19,8 @@
             <Column ColumnSize="ColumnSize.Is4.OnWidescreen.Is12">
                 <LocationComponent Location="@ViewModel.CurrentLocation" />
                 <MonsterComponent Monster="@ViewModel.CurrentMonster" />
+                <TraderComponent Trader="@ViewModel.CurrentTrader" Player="@ViewModel.CurrentPlayer"
+                    InventoryChanged="@OnInventoryChanged" />
             </Column>
         </Row>
     </Column>
@@ -39,3 +41,11 @@
         </Row>
     </Column>
 </Row>
+
+@code {
+    [System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+    private void OnInventoryChanged()
+    {
+        StateHasChanged();
+    }
+}
