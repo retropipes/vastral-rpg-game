@@ -5,9 +5,10 @@ namespace VastralRPG.Game.Engine.ViewModels;
 
 public class GameSession : IGameSession
 {
-    private readonly World currentWorld;
+    private readonly World _currentWorld;
+    private readonly int _maximumMessagesCount = 100;
 
-    public Player CurrentPlayer { get; set; }
+    public Player CurrentPlayer { get; private set; }
 
     public Location CurrentLocation { get; private set; }
 
@@ -17,11 +18,19 @@ public class GameSession : IGameSession
 
     public MovementUnit Movement { get; private set; }
 
+    public IList<DisplayMessage> Messages { get; } = new List<DisplayMessage>();
+
+    public GameSession(int maxMessageCount)
+        : this()
+    {
+        _maximumMessagesCount = maxMessageCount;
+    }
+
     public GameSession()
     {
-        this.CurrentPlayer = new Player
+        CurrentPlayer = new Player
         {
-            Name = "RetroPipes",
+            Name = "DarthPedro",
             CharacterClass = "Fighter",
             CurrentHitPoints = 10,
             MaximumHitPoints = 10,
@@ -29,16 +38,10 @@ public class GameSession : IGameSession
             ExperiencePoints = 0,
             Level = 1
         };
-        this.CurrentLocation = new Location
-        {
-            Name = "Home",
-            XCoordinate = 0,
-            YCoordinate = -1,
-            Description = "This is your house.",
-            ImageName = "/images/locations/Home.png"
-        };
-        this.currentWorld = WorldFactory.CreateWorld();
-        this.Movement = new MovementUnit(this.currentWorld);
+
+        _currentWorld = WorldFactory.CreateWorld();
+
+        Movement = new MovementUnit(_currentWorld);
         this.CurrentLocation = this.Movement.CurrentLocation;
         GetMonsterAtCurrentLocation();
         var pointyStick = ItemFactory.CreateGameItem(1001);
@@ -54,6 +57,27 @@ public class GameSession : IGameSession
         GetMonsterAtCurrentLocation();
     }
 
-    private void GetMonsterAtCurrentLocation() =>
+    private void GetMonsterAtCurrentLocation()
+    {
         CurrentMonster = CurrentLocation.HasMonster() ? CurrentLocation.GetMonster() : null;
+
+        if (CurrentMonster != null)
+        {
+            AddDisplayMessage("Monster Encountered:", $"You see a {CurrentMonster.Name} here!");
+        }
+    }
+
+    private void AddDisplayMessage(string title, string message) =>
+        AddDisplayMessage(title, new List<string> { message });
+
+    private void AddDisplayMessage(string title, IList<string> messages)
+    {
+        var message = new DisplayMessage(title, messages);
+        this.Messages.Insert(0, message);
+
+        if (Messages.Count > _maximumMessagesCount)
+        {
+            Messages.Remove(Messages.Last());
+        }
+    }
 }
