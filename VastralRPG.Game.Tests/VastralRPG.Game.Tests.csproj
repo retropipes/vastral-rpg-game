@@ -8,6 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazorise.Bootstrap5" Version="1.0.1" />
     <PackageReference Include="bunit" Version="1.6.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
@@ -23,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\VastralRPG.Game\VastralRPG.Game.csproj" />
+    <ProjectReference Include="..\VastralRPG.Game.Engine\VastralRPG.Game.Engine.csproj" />
   </ItemGroup>
 
 </Project>
