@@ -8,5 +8,7 @@ public interface IGameSession
 
     Location CurrentLocation { get; }
 
-    void AddXP();
+    MovementUnit Movement { get; }
+
+    void OnLocationChanged(Location newLocation);
 }

@@ -1,12 +1,17 @@
+using VastralRPG.Game.Engine.Factories;
 using VastralRPG.Game.Engine.Models;
 
 namespace VastralRPG.Game.Engine.ViewModels;
 
 public class GameSession : IGameSession
 {
+    private readonly World currentWorld;
+
     public Player CurrentPlayer { get; set; }
 
     public Location CurrentLocation { get; private set; }
+
+    public MovementUnit Movement { get; private set; }
 
     public GameSession()
     {
@@ -27,10 +32,11 @@ public class GameSession : IGameSession
             Description = "This is your house.",
             ImageName = "/images/locations/Home.png"
         };
+        this.currentWorld = WorldFactory.CreateWorld();
+        this.Movement = new MovementUnit(this.currentWorld);
+        this.CurrentLocation = this.Movement.CurrentLocation;
     }
 
-    public void AddXP()
-    {
-        this.CurrentPlayer.ExperiencePoints += 10;
-    }
+    public void OnLocationChanged(Location newLocation) =>
+            this.CurrentLocation = newLocation;
 }
