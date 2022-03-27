@@ -2,7 +2,7 @@ using VastralRPG.Game.Engine.Models;
 
 namespace VastralRPG.Game.Engine.ViewModels;
 
-public class GameSession
+public class GameSession : IGameSession
 {
     public Player CurrentPlayer { get; set; }
 

@@ -1,5 +1,7 @@
 using Bunit;
 using Microsoft.Extensions.DependencyInjection;
+using Moq;
+using VastralRPG.Game.Engine.Models;
 using VastralRPG.Game.Engine.ViewModels;
 using VastralRPG.Game.Pages;
 using VastralRPG.Game.Tests.Mocks;
@@ -9,7 +11,19 @@ namespace VastralRPG.Game.Tests.Pages;
 
 public class MainScreenTests
 {
-    private readonly GameSession session = new MockGameSession();
+    private readonly Mock<IGameSession> session = new Mock<IGameSession>();
+
+    public MainScreenTests()
+    {
+        session.SetupGet(p => p.CurrentPlayer).Returns(
+        new Player
+        {
+            Name = "TestPlayer",
+            CharacterClass = "TestClass",
+            Level = 1,
+            HitPoints = 8,
+        });
+    }
 
     [Fact]
     public void SimpleRender()
@@ -17,7 +31,7 @@ public class MainScreenTests
         // arrange
         using var ctx = new TestContext();
         ctx.Services.AddBlazoriseServices();
-        ctx.Services.AddSingleton<GameSession>(session);
+        ctx.Services.AddSingleton<IGameSession>(session.Object);
         var mod = ctx.JSInterop.SetupModule("./_content/Blazorise/button.js?v=1.0.1.0");
         mod.SetupVoid("initialize", _ => true);
         // act
