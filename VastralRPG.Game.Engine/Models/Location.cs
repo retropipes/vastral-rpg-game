@@ -18,6 +18,8 @@ public class Location
 
     public string ImageName { get; set; } = string.Empty;
 
+    public IList<Quest> QuestsAvailableHere { get; set; } = new List<Quest>();
+
     public IList<MonsterEncounter> MonstersHere { get; set; } = new List<MonsterEncounter>();
 
     public Trader? TraderHere { get; set; } = null;
@@ -48,18 +50,14 @@ public class Location
         {
             throw new InvalidOperationException();
         }
-
         // total the percentages of all monsters at this location.
         int totalChances = MonstersHere.Sum(m => m.ChanceOfEncountering);
-
         // Select a random number between 1 and the total (in case the total chances is not 100).
         var result = DiceService.Instance.Roll(totalChances);
-
         // loop through the monster list, 
         // adding the monster's percentage chance of appearing to the runningTotal variable.
         // when the random number is lower than the runningTotal, that is the monster to return.
         int runningTotal = 0;
-
         foreach (MonsterEncounter monsterEncounter in MonstersHere)
         {
             runningTotal += monsterEncounter.ChanceOfEncountering;
@@ -69,7 +67,6 @@ public class Location
                 return MonsterFactory.GetMonster(monsterEncounter.MonsterId);
             }
         }
-
         // If there was a problem, return the last monster in the list.
         return MonsterFactory.GetMonster(MonstersHere.Last().MonsterId);
     }

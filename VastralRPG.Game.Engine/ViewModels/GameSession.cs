@@ -63,6 +63,7 @@ public class GameSession : IGameSession
         CurrentLocation = newLocation;
         Movement.UpdateLocation(CurrentLocation);
         GetMonsterAtCurrentLocation();
+        GetQuestsAtLocation();
         CurrentTrader = CurrentLocation.TraderHere;
     }
 
@@ -139,6 +140,30 @@ public class GameSession : IGameSession
         if (CurrentMonster != null)
         {
             AddDisplayMessage("Monster Encountered:", $"You see a {CurrentMonster.Name} here!");
+        }
+    }
+
+    private void GetQuestsAtLocation()
+    {
+        foreach (Quest quest in CurrentLocation.QuestsAvailableHere)
+        {
+            if (!CurrentPlayer.Quests.Any(q => q.PlayerQuest.Id == quest.Id))
+            {
+                CurrentPlayer.Quests.Add(new QuestStatus(quest));
+
+                var messageLines = new List<string>
+                    {
+                        quest.Description,
+                        "Items to complete the quest:"
+                    };
+
+                foreach (ItemQuantity q in quest.ItemsToComplete)
+                {
+                    messageLines.Add($"{ItemFactory.CreateGameItem(q.ItemId).Name} (x{q.Quantity})");
+                }
+
+                AddDisplayMessage($"Quest Added - {quest.Name}", messageLines);
+            }
         }
     }
 
