@@ -11,7 +11,6 @@ public class Inventory
         {
             return;
         }
-
         foreach (GameItem item in items)
         {
             AddItem(item);
@@ -26,12 +25,12 @@ public class Inventory
 
     public IReadOnlyList<GroupedInventoryItem> GroupedItems => _backingGroupedInventory.AsReadOnly();
 
+    public IEnumerable<GameItem> Weapons => _backingInventory.Where(i => i is Weapon);
+
     public void AddItem(GameItem item)
     {
         _ = item ?? throw new ArgumentNullException(nameof(item));
-
         _backingInventory.Add(item);
-
         if (item.IsUnique)
         {
             _backingGroupedInventory.Add(new GroupedInventoryItem { Item = item, Quantity = 1 });
@@ -42,7 +41,6 @@ public class Inventory
             {
                 _backingGroupedInventory.Add(new GroupedInventoryItem { Item = item, Quantity = 0 });
             }
-
             _backingGroupedInventory.First(gi => gi.Item.ItemTypeID == item.ItemTypeID).Quantity++;
         }
     }
@@ -50,12 +48,9 @@ public class Inventory
     public void RemoveItem(GameItem item)
     {
         _ = item ?? throw new ArgumentNullException(nameof(item));
-
         _backingInventory.Remove(item);
-
         GroupedInventoryItem? groupedInventoryItemToRemove =
             _backingGroupedInventory.FirstOrDefault(gi => gi.Item == item);
-
         if (groupedInventoryItemToRemove != null)
         {
             if (groupedInventoryItemToRemove.Quantity == 1)

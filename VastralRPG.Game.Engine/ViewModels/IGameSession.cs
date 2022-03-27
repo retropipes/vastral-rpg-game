@@ -17,4 +17,6 @@ public interface IGameSession
     IList<DisplayMessage> Messages { get; }
 
     void OnLocationChanged(Location newLocation);
+
+    void AttackCurrentMonster(Weapon? currentWeapon);
 }
