@@ -100,7 +100,7 @@ public class MovementUnitTests
         // arrange
         var w = new World(locations);
         var move = new MovementUnit(w);
-        Location? newLocation = null;
+        Location newLocation = null;
         move.LocationChanged = eventFactory.Create<Location>(this, e => newLocation = e);
         // act
         move.MoveNorth();
@@ -116,7 +116,7 @@ public class MovementUnitTests
         // arrange
         var w = new World(locations);
         var move = new MovementUnit(w);
-        Location? newLocation = null;
+        Location newLocation = null;
         move.LocationChanged = eventFactory.Create<Location>(this, e => newLocation = e);
         // act
         move.MoveEast();
