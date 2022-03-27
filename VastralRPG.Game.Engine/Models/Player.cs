@@ -1,16 +1,10 @@
 namespace VastralRPG.Game.Engine.Models;
 
-public class Player
+public class Player : LivingEntity
 {
-    public string Name { get; set; } = string.Empty;
-
     public string CharacterClass { get; set; } = string.Empty;
-
-    public int HitPoints { get; set; }
 
     public int ExperiencePoints { get; set; }
 
-    public int Level { get; set; }
-
-    public int Gold { get; set; }
+    public IList<QuestStatus> Quests { get; set; } = new List<QuestStatus>();
 }

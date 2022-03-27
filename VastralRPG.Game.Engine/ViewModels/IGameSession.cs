@@ -8,7 +8,17 @@ public interface IGameSession
 
     Location CurrentLocation { get; }
 
+    Monster? CurrentMonster { get; }
+
+    bool HasMonster { get; }
+
+    Trader? CurrentTrader { get; }
+
     MovementUnit Movement { get; }
 
+    IList<DisplayMessage> Messages { get; }
+
     void OnLocationChanged(Location newLocation);
+
+    void AttackCurrentMonster(Weapon? currentWeapon);
 }

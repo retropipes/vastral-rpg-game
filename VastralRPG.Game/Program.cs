@@ -4,6 +4,7 @@ using Blazorise.Icons.FontAwesome;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using VastralRPG.Game;
+using VastralRPG.Game.Engine.Services;
 using VastralRPG.Game.Engine.ViewModels;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
@@ -18,7 +19,9 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 // add app-specific/custom services and view models here...
+builder.Services.AddSingleton<IDiceService>(DiceService.Instance);
 builder.Services.AddSingleton<IGameSession, GameSession>();
+builder.Services.AddTransient<TraderViewModel>();
 var host = builder.Build();
 // initialize app-specific/custom services and view models here...
 
