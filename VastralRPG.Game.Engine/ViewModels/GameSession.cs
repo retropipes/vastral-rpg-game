@@ -35,7 +35,7 @@ public class GameSession : IGameSession
         _diceService = diceService ?? DiceService.Instance;
         CurrentPlayer = new Player
         {
-            Name = "DarthPedro",
+            Name = "RetroPipes",
             CharacterClass = "Fighter",
             CurrentHitPoints = 10,
             MaximumHitPoints = 10,
