@@ -11,6 +11,10 @@ public class GameSession : IGameSession
 
     public Location CurrentLocation { get; private set; }
 
+    public Monster? CurrentMonster { get; private set; }
+
+    public bool HasMonster => CurrentMonster != null;
+
     public MovementUnit Movement { get; private set; }
 
     public GameSession()
@@ -19,7 +23,8 @@ public class GameSession : IGameSession
         {
             Name = "RetroPipes",
             CharacterClass = "Fighter",
-            HitPoints = 10,
+            CurrentHitPoints = 10,
+            MaximumHitPoints = 10,
             Gold = 1000,
             ExperiencePoints = 0,
             Level = 1
@@ -35,6 +40,7 @@ public class GameSession : IGameSession
         this.currentWorld = WorldFactory.CreateWorld();
         this.Movement = new MovementUnit(this.currentWorld);
         this.CurrentLocation = this.Movement.CurrentLocation;
+        GetMonsterAtCurrentLocation();
         var pointyStick = ItemFactory.CreateGameItem(1001);
         if (pointyStick != null)
         {
@@ -42,6 +48,12 @@ public class GameSession : IGameSession
         }
     }
 
-    public void OnLocationChanged(Location newLocation) =>
-            this.CurrentLocation = newLocation;
+    public void OnLocationChanged(Location newLocation)
+    {
+        CurrentLocation = newLocation;
+        GetMonsterAtCurrentLocation();
+    }
+
+    private void GetMonsterAtCurrentLocation() =>
+        CurrentMonster = CurrentLocation.HasMonster() ? CurrentLocation.GetMonster() : null;
 }

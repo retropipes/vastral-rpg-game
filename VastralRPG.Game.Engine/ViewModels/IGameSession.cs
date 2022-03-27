@@ -8,6 +8,10 @@ public interface IGameSession
 
     Location CurrentLocation { get; }
 
+    Monster? CurrentMonster { get; }
+
+    bool HasMonster { get; }
+
     MovementUnit Movement { get; }
 
     void OnLocationChanged(Location newLocation);

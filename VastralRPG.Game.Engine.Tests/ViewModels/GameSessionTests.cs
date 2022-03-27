@@ -20,7 +20,7 @@ public class GameSessionTests
         Assert.NotNull(vm.Movement);
         Assert.Equal("RetroPipes", vm.CurrentPlayer.Name);
         Assert.Equal("Fighter", vm.CurrentPlayer.CharacterClass);
-        Assert.Equal(10, vm.CurrentPlayer.HitPoints);
+        Assert.Equal(10, vm.CurrentPlayer.CurrentHitPoints);
         Assert.Equal(1000, vm.CurrentPlayer.Gold);
         Assert.Equal(0, vm.CurrentPlayer.ExperiencePoints);
         Assert.Equal(1, vm.CurrentPlayer.Level);

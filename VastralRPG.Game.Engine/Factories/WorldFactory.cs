@@ -80,6 +80,11 @@ internal static class WorldFactory
                     ImageName = "/images/locations/HerbalistsGarden.png"
                 },
             };
-        return new World(locations);
+        var newWorld = new World(locations);
+        // add monsters at their particular location
+        newWorld.LocationAt(-2, -1).AddMonsterEncounter(2, 100);
+        newWorld.LocationAt(2, 0).AddMonsterEncounter(3, 100);
+        newWorld.LocationAt(0, 2).AddMonsterEncounter(1, 100);
+        return newWorld;
     }
 }
