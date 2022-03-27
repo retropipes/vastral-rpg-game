@@ -15,7 +15,7 @@ internal static class MonsterFactory
                 Monster snake = new Monster
                 {
                     Name = "Snake",
-                    ImageName = "/images/monsters/snake.png",
+                    ImageName = "/images/monsters/Snake.png",
                     CurrentHitPoints = 4,
                     MaximumHitPoints = 4,
                     RewardExperiencePoints = 5,
@@ -31,7 +31,7 @@ internal static class MonsterFactory
                 Monster rat = new Monster
                 {
                     Name = "Rat",
-                    ImageName = "/images/monsters/rat.png",
+                    ImageName = "/images/monsters/Rat.png",
                     CurrentHitPoints = 5,
                     MaximumHitPoints = 5,
                     RewardExperiencePoints = 5,
@@ -47,7 +47,7 @@ internal static class MonsterFactory
                 Monster giantSpider = new Monster
                 {
                     Name = "Giant Spider",
-                    ImageName = "/images/monsters/giant-spider.png",
+                    ImageName = "/images/monsters/GiantSpider.png",
                     CurrentHitPoints = 10,
                     MaximumHitPoints = 10,
                     RewardExperiencePoints = 10,
