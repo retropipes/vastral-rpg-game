@@ -16,6 +16,8 @@ public class GameSession : IGameSession
 
     public Monster? CurrentMonster { get; private set; }
 
+    public Trader? CurrentTrader { get; private set; }
+
     public bool HasMonster => CurrentMonster != null;
 
     public MovementUnit Movement { get; private set; }
@@ -57,8 +59,11 @@ public class GameSession : IGameSession
 
     public void OnLocationChanged(Location newLocation)
     {
+        _ = newLocation ?? throw new ArgumentNullException(nameof(newLocation));
         CurrentLocation = newLocation;
+        Movement.UpdateLocation(CurrentLocation);
         GetMonsterAtCurrentLocation();
+        CurrentTrader = CurrentLocation.TraderHere;
     }
 
     public void AttackCurrentMonster(Weapon? currentWeapon)

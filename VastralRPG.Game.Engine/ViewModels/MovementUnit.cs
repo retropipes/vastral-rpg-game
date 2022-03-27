@@ -42,6 +42,11 @@ public class MovementUnit
     public void MoveWest() =>
         this.MoveBase(this.CurrentLocation.XCoordinate - 1, this.CurrentLocation.YCoordinate);
 
+    public void UpdateLocation(Location newLocation)
+    {
+        this.CurrentLocation = newLocation;
+    }
+
     private void MoveBase(int xCorridate, int yCoordinate)
     {
         if (this.world.HasLocationAt(xCorridate, yCoordinate))

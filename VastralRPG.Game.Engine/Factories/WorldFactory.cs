@@ -21,7 +21,8 @@ internal static class WorldFactory
                     YCoordinate = -1,
                     Name = "Farmer's House",
                     Description = "This is the house of your neighbor, Farmer Ted.",
-                    ImageName = "/images/locations/Farmhouse.png"
+                    ImageName = "/images/locations/Farmhouse.png",
+                    TraderHere = TraderFactory.GetTraderById(102)
                 },
                 new Location
                 {
@@ -37,7 +38,8 @@ internal static class WorldFactory
                     YCoordinate = 0,
                     Name = "Trading Shop",
                     Description = "The shop of Susan, the trader.",
-                    ImageName = "/images/locations/Trader.png"
+                    ImageName = "/images/locations/Trader.png",
+                    TraderHere = TraderFactory.GetTraderById(101)
                 },
                 new Location
                 {
@@ -69,7 +71,8 @@ internal static class WorldFactory
                     YCoordinate = 1,
                     Name = "Herbalist's Hut",
                     Description = "You see a small hut, with plants drying from the roof.",
-                    ImageName = "/images/locations/HerbalistsHut.png"
+                    ImageName = "/images/locations/HerbalistsHut.png",
+                    TraderHere = TraderFactory.GetTraderById(103)
                 },
                 new Location
                 {
@@ -81,7 +84,7 @@ internal static class WorldFactory
                 },
             };
         var newWorld = new World(locations);
-        // add monsters at their particular location
+        // add monsters at their particular location.
         newWorld.LocationAt(-2, -1).AddMonsterEncounter(2, 100);
         newWorld.LocationAt(2, 0).AddMonsterEncounter(3, 100);
         newWorld.LocationAt(0, 2).AddMonsterEncounter(1, 100);

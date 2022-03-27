@@ -12,6 +12,8 @@ public interface IGameSession
 
     bool HasMonster { get; }
 
+    Trader? CurrentTrader { get; }
+
     MovementUnit Movement { get; }
 
     IList<DisplayMessage> Messages { get; }
