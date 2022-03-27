@@ -1,8 +1,6 @@
 using VastralRPG.Game.Engine.Models;
 using System.Collections.Generic;
-
 namespace VastralRPG.Game.Engine.Factories;
-
 internal static class WorldFactory
 {
     internal static World CreateWorld()
@@ -82,7 +80,6 @@ internal static class WorldFactory
                     ImageName = "/images/locations/HerbalistsGarden.png"
                 },
             };
-
         return new World(locations);
     }
 }

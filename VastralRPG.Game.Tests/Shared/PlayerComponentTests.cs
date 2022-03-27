@@ -4,166 +4,167 @@ using VastralRPG.Game.Shared;
 using VastralRPG.Game.Tests.Mocks;
 using Xunit;
 
-namespace VastralRPG.Game.Tests.Shared;
-
-public class PlayerComponentTests
+namespace VastralRPG.Game.Tests.Shared
 {
-    [Fact]
-    public void SimpleRender_WithEmptyPlayer()
+    public class PlayerComponentTests
     {
-        // arrange
-        using var ctx = new TestContext();
-        ctx.Services.AddBlazoriseServices();
+        [Fact]
+        public void SimpleRender_WithEmptyPlayer()
+        {
+            // arrange
+            using var ctx = new TestContext();
+            ctx.Services.AddBlazoriseServices();
 
-        // act
-        var cut = ctx.RenderComponent<PlayerComponent>();
+            // act
+            var cut = ctx.RenderComponent<PlayerComponent>();
 
-        // assert
-        var expected =
+            // assert
+            var expected =
 @"    <table class=""b-table table table-sm table-borderless"">
       <thead>
         <tr>
-          <th scope=""col"" rowspan=""2"">
+          <th scope=""col""  rowspan=""2"">
             Player Data
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>
+        <tr >
+          <td >
             Name:
           </td>
-          <td>
+          <td >
           </td>
         </tr>
-        <tr>
-          <td>
+        <tr >
+          <td >
             Class:
           </td>
-          <td>
+          <td >
           </td>
         </tr>
-        <tr>
-          <td>
+        <tr >
+          <td >
             Hit points:
           </td>
-          <td>
+          <td >
             0
           </td>
         </tr>
-        <tr>
-          <td>
+        <tr >
+          <td >
             Gold:
           </td>
-          <td>
+          <td >
             0
           </td>
         </tr>
-        <tr>
-          <td>
+        <tr >
+          <td >
             XP:
           </td>
-          <td>
+          <td >
             0
           </td>
         </tr>
-        <tr>
-          <td>
+        <tr >
+          <td >
             Level:
           </td>
-          <td>
+          <td >
             0
           </td>
         </tr>
       </tbody>
     </table>
 ";
-        cut.MarkupMatches(expected);
-    }
+            cut.MarkupMatches(expected);
+        }
 
-    [Fact]
-    public void SimpleRender_WithPlayer()
-    {
-        // arrange
-        using var ctx = new TestContext();
-        ctx.Services.AddBlazoriseServices();
-
-        var testPlayer = new Player
+        [Fact]
+        public void SimpleRender_WithPlayer()
         {
-            Name = "TestPlayer",
-            CharacterClass = "TestClass",
-            HitPoints = 8,
-            Gold = 10,
-            ExperiencePoints = 101,
-            Level = 1,
-        };
-        var parameter = ComponentParameterFactory.Parameter("Player", testPlayer);
+            // arrange
+            using var ctx = new TestContext();
+            ctx.Services.AddBlazoriseServices();
 
-        // act
-        var cut = ctx.RenderComponent<PlayerComponent>(parameter);
+            var testPlayer = new Player
+            {
+                Name = "TestPlayer",
+                CharacterClass = "TestClass",
+                HitPoints = 8,
+                Gold = 10,
+                ExperiencePoints = 101,
+                Level = 1,
+            };
+            var parameter = ComponentParameterFactory.Parameter("Player", testPlayer);
 
-        // assert
-        var expected =
+            // act
+            var cut = ctx.RenderComponent<PlayerComponent>(parameter);
+
+            // assert
+            var expected =
 @"    <table class=""b-table table table-sm table-borderless"">
       <thead>
         <tr>
-          <th scope=""col"" rowspan=""2"">
+          <th scope=""col""  rowspan=""2"">
             Player Data
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>
+        <tr >
+          <td >
             Name:
           </td>
-          <td>
+          <td >
             TestPlayer
           </td>
         </tr>
-        <tr>
-          <td>
+        <tr >
+          <td >
             Class:
           </td>
-          <td>
+          <td >
             TestClass
           </td>
         </tr>
-        <tr>
-          <td>
+        <tr >
+          <td >
             Hit points:
           </td>
-          <td>
+          <td >
             8
           </td>
         </tr>
-        <tr>
-          <td>
+        <tr >
+          <td >
             Gold:
           </td>
-          <td>
+          <td >
             10
           </td>
         </tr>
-        <tr>
-          <td>
+        <tr >
+          <td >
             XP:
           </td>
-          <td>
+          <td >
             101
           </td>
         </tr>
-        <tr>
-          <td>
+        <tr >
+          <td >
             Level:
           </td>
-          <td>
+          <td >
             1
           </td>
         </tr>
       </tbody>
     </table>
 ";
-        cut.MarkupMatches(expected);
+            cut.MarkupMatches(expected);
+        }
     }
 }
