@@ -63,6 +63,7 @@ public class GameSession : IGameSession
         CurrentLocation = newLocation;
         Movement.UpdateLocation(CurrentLocation);
         GetMonsterAtCurrentLocation();
+        CompleteQuestsAtLocation();
         GetQuestsAtLocation();
         CurrentTrader = CurrentLocation.TraderHere;
     }
@@ -163,7 +164,62 @@ public class GameSession : IGameSession
                         messageLines.Add($"{item.Name} (x{q.Quantity})");
                     }
                 }
+                messageLines.Add("Rewards for quest completion:");
+                messageLines.Add($"   {quest.RewardExperiencePoints} experience points");
+                messageLines.Add($"   {quest.RewardGold} gold");
+                foreach (ItemQuantity itemQuantity in quest.RewardItems)
+                {
+                    var item = ItemFactory.CreateGameItem(itemQuantity.ItemId);
+                    if (item != null)
+                    {
+                        messageLines.Add($"   {itemQuantity.Quantity} {item.Name} (x{itemQuantity.Quantity})");
+                    }
+                }
                 AddDisplayMessage($"Quest Added - {quest.Name}", messageLines);
+            }
+        }
+    }
+
+    private void CompleteQuestsAtLocation()
+    {
+        foreach (Quest quest in CurrentLocation.QuestsAvailableHere)
+        {
+            QuestStatus? questToComplete =
+                CurrentPlayer.Quests.FirstOrDefault(q => q.PlayerQuest.Id == quest.Id &&
+                                                         !q.IsCompleted);
+            if (questToComplete != null)
+            {
+                if (CurrentPlayer.Inventory.HasAllTheseItems(quest.ItemsToComplete))
+                {
+                    // Remove the quest completion items from the player's inventory
+                    foreach (ItemQuantity itemQuantity in quest.ItemsToComplete)
+                    {
+                        for (int i = 0; i < itemQuantity.Quantity; i++)
+                        {
+                            CurrentPlayer.Inventory.RemoveItem(
+                                CurrentPlayer.Inventory.Items.First(
+                                    item => item.ItemTypeID == itemQuantity.ItemId));
+                        }
+                    }
+                    // give the player the quest rewards
+                    var messageLines = new List<string>();
+                    CurrentPlayer.ExperiencePoints += quest.RewardExperiencePoints;
+                    messageLines.Add($"You receive {quest.RewardExperiencePoints} experience points");
+                    CurrentPlayer.Gold += quest.RewardGold;
+                    messageLines.Add($"You receive {quest.RewardGold} gold");
+                    foreach (ItemQuantity itemQuantity in quest.RewardItems)
+                    {
+                        GameItem? rewardItem = ItemFactory.CreateGameItem(itemQuantity.ItemId);
+                        if (rewardItem != null)
+                        {
+                            CurrentPlayer.Inventory.AddItem(rewardItem);
+                            messageLines.Add($"You receive a {rewardItem.Name}");
+                        }
+                    }
+                    AddDisplayMessage($"Quest Completed - {quest.Name}", messageLines);
+                    // mark the quest as completed
+                    questToComplete.IsCompleted = true;
+                }
             }
         }
     }
