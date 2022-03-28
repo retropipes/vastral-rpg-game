@@ -25,7 +25,8 @@ public class Inventory
 
     public IReadOnlyList<GroupedInventoryItem> GroupedItems => _backingGroupedInventory.AsReadOnly();
 
-    public IEnumerable<GameItem> Weapons => _backingInventory.Where(i => i is Weapon);
+    public IList<GameItem> Weapons =>
+            Items.Where(i => i.Category == GameItem.ItemCategory.Weapon).ToList();
 
     public void AddItem(GameItem item)
     {

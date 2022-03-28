@@ -68,34 +68,22 @@ public class GameSession : IGameSession
         CurrentTrader = CurrentLocation.TraderHere;
     }
 
-    public void AttackCurrentMonster(Weapon? currentWeapon)
+    public void AttackCurrentMonster(GameItem? currentWeapon)
     {
         if (CurrentMonster is null)
         {
             return;
         }
-
         if (currentWeapon is null)
         {
             AddDisplayMessage("Combat Warning", "You must select a weapon, to attack.");
             return;
         }
-
-        // Determine damage to monster
-        int damageToMonster = _diceService.Roll(currentWeapon.DamageRoll).Value;
-
-        if (damageToMonster == 0)
-        {
-            AddDisplayMessage("Player Combat", $"You missed the {CurrentMonster.Name}.");
-        }
-        else
-        {
-            CurrentMonster.TakeDamage(damageToMonster);
-            AddDisplayMessage("Player Combat", $"You hit the {CurrentMonster.Name} for {damageToMonster} points.");
-        }
-
+        // player acts monster with weapon
+        var message = currentWeapon.PerformAction(CurrentPlayer, CurrentMonster);
+        Messages.Add(message);
         // If monster if killed, collect rewards and loot
-        if (CurrentMonster.CurrentHitPoints <= 0)
+        if (CurrentMonster.IsDead)
         {
             var messageLines = new List<string>();
             messageLines.Add($"You defeated the {CurrentMonster.Name}!");
@@ -126,11 +114,11 @@ public class GameSession : IGameSession
                 AddDisplayMessage("Monster Combat", $"The {CurrentMonster.Name} hit you for {damageToPlayer} points.");
             }
             // If player is killed, move them back to their home.
-            if (CurrentPlayer.CurrentHitPoints <= 0)
+            if (CurrentPlayer.IsDead)
             {
                 AddDisplayMessage("Player Defeated", $"The {CurrentMonster.Name} killed you.");
                 CurrentPlayer.CompletelyHeal();  // Completely heal the player
-                this.OnLocationChanged(_currentWorld.LocationAt(0, -1)); // Return to Player's home
+                this.OnLocationChanged(_currentWorld.LocationAt(0, -1));  // Return to Player's home
             }
         }
     }
