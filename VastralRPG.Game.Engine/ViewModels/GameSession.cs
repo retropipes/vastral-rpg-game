@@ -197,31 +197,7 @@ public class GameSession : IGameSession
             if (!CurrentPlayer.Quests.Any(q => q.PlayerQuest.Id == quest.Id))
             {
                 CurrentPlayer.Quests.Add(new QuestStatus(quest));
-                var messageLines = new List<string>
-                    {
-                        quest.Description,
-                        "Items to complete the quest:"
-                    };
-                foreach (ItemQuantity q in quest.ItemsToComplete)
-                {
-                    var item = ItemFactory.CreateGameItem(q.ItemId);
-                    if (item != null)
-                    {
-                        messageLines.Add($"{item.Name} (x{q.Quantity})");
-                    }
-                }
-                messageLines.Add("Rewards for quest completion:");
-                messageLines.Add($"   {quest.RewardExperiencePoints} experience points");
-                messageLines.Add($"   {quest.RewardGold} gold");
-                foreach (ItemQuantity itemQuantity in quest.RewardItems)
-                {
-                    var item = ItemFactory.CreateGameItem(itemQuantity.ItemId);
-                    if (item != null)
-                    {
-                        messageLines.Add($"   {itemQuantity.Quantity} {item.Name} (x{itemQuantity.Quantity})");
-                    }
-                }
-                AddDisplayMessage($"Quest Added - {quest.Name}", messageLines);
+                AddDisplayMessage(quest.ToDisplayMessage());
             }
         }
     }
@@ -281,7 +257,7 @@ public class GameSession : IGameSession
         AddDisplayMessage(new DisplayMessage(title, messages));
     }
 
-    private void AddDisplayMessage(DisplayMessage message)
+    public void AddDisplayMessage(DisplayMessage message)
     {
         this.Messages.Insert(0, message);
         if (Messages.Count > _maximumMessagesCount)
