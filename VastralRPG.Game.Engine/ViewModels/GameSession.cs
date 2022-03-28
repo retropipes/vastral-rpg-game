@@ -55,6 +55,7 @@ public class GameSession : IGameSession
                 CurrentPlayer.Inventory.AddItem(pointyStick);
             }
         }
+        CurrentPlayer.Inventory.AddItem(ItemFactory.CreateGameItem(2001));
     }
 
     public void OnLocationChanged(Location newLocation)
@@ -101,6 +102,19 @@ public class GameSession : IGameSession
                 OnCurrentPlayerKilled(CurrentMonster);
             }
         }
+    }
+
+    public void ConsumeCurrentItem(GameItem? item)
+    {
+        if (item is null || item.Category != GameItem.ItemCategory.Consumable)
+        {
+            AddDisplayMessage("Item Warning", "You must select a consumable item to use.");
+            return;
+        }
+        // player uses consumable item to heal themselves and item is removed from inventory.
+        CurrentPlayer.CurrentConsumable = item;
+        var message = CurrentPlayer.UseCurrentConsumable(CurrentPlayer);
+        AddDisplayMessage(message);
     }
 
     private void OnCurrentPlayerKilled(Monster currentMonster)

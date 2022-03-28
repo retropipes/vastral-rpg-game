@@ -17,6 +17,7 @@ internal static class ItemFactory
         BuildWeapon(1501, "Snake fangs", 0, "1d2");
         BuildWeapon(1502, "Rat claws", 0, "1d2");
         BuildWeapon(1503, "Spider fangs", 0, "1d4");
+        BuildHealingItem(2001, "Granola bar", 5, 2);
         BuildMiscellaneousItem(9001, "Snake fang", 1);
         BuildMiscellaneousItem(9002, "Snakeskin", 2);
         BuildMiscellaneousItem(9003, "Rat tail", 1);
@@ -42,5 +43,12 @@ internal static class ItemFactory
         var weapon = new GameItem(id, GameItem.ItemCategory.Weapon, name, price, true);
         weapon.Action = new Attack(weapon, damageDice);
         _standardGameItems.Add(weapon);
+    }
+
+    private static void BuildHealingItem(int id, string name, int price, int hitPointsToHeal)
+    {
+        GameItem item = new GameItem(id, GameItem.ItemCategory.Consumable, name, price);
+        item.Action = new Heal(item, hitPointsToHeal);
+        _standardGameItems.Add(item);
     }
 }
