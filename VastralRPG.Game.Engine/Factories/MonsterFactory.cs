@@ -20,13 +20,11 @@ internal static class MonsterFactory
                     MaximumHitPoints = 4,
                     RewardExperiencePoints = 5,
                     Gold = 1,
-                    DamageRoll = "1d2"
                 };
-
+                snake.CurrentWeapon = ItemFactory.CreateGameItem(1501);
                 AddLootItem(snake, 9001, 25);
                 AddLootItem(snake, 9002, 75);
                 return snake;
-
             case 2:
                 Monster rat = new Monster
                 {
@@ -36,13 +34,11 @@ internal static class MonsterFactory
                     MaximumHitPoints = 5,
                     RewardExperiencePoints = 5,
                     Gold = 1,
-                    DamageRoll = "1d2"
                 };
-
+                rat.CurrentWeapon = ItemFactory.CreateGameItem(1502);
                 AddLootItem(rat, 9003, 25);
                 AddLootItem(rat, 9004, 75);
                 return rat;
-
             case 3:
                 Monster giantSpider = new Monster
                 {
@@ -52,13 +48,11 @@ internal static class MonsterFactory
                     MaximumHitPoints = 10,
                     RewardExperiencePoints = 10,
                     Gold = 3,
-                    DamageRoll = "1d4"
                 };
-
+                giantSpider.CurrentWeapon = ItemFactory.CreateGameItem(1503);
                 AddLootItem(giantSpider, 9005, 25);
                 AddLootItem(giantSpider, 9006, 75);
                 return giantSpider;
-
             default:
                 throw new ArgumentOutOfRangeException(nameof(monsterID));
         }

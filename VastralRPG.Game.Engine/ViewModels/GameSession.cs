@@ -80,47 +80,50 @@ public class GameSession : IGameSession
             return;
         }
         // player acts monster with weapon
-        var message = currentWeapon.PerformAction(CurrentPlayer, CurrentMonster);
-        Messages.Add(message);
+        CurrentPlayer.CurrentWeapon = currentWeapon;
+        var message = CurrentPlayer.UseCurrentWeaponOn(CurrentMonster);
+        AddDisplayMessage(message);
         // If monster if killed, collect rewards and loot
         if (CurrentMonster.IsDead)
         {
-            var messageLines = new List<string>();
-            messageLines.Add($"You defeated the {CurrentMonster.Name}!");
-            CurrentPlayer.AddExperience(CurrentMonster.RewardExperiencePoints);
-            messageLines.Add($"You receive {CurrentMonster.RewardExperiencePoints} experience points.");
-            CurrentPlayer.ReceiveGold(CurrentMonster.Gold);
-            messageLines.Add($"You receive {CurrentMonster.Gold} gold.");
-            foreach (GameItem item in CurrentMonster.Inventory.Items)
-            {
-                CurrentPlayer.Inventory.AddItem(item);
-                messageLines.Add($"You received {item.Name}.");
-            }
-            AddDisplayMessage("Monster Defeated", messageLines);
+            OnCurrentMonsterKilled(CurrentMonster);
             // Get another monster to fight
             GetMonsterAtCurrentLocation();
         }
         else
         {
-            // If monster is still alive, let the monster attack
-            int damageToPlayer = _diceService.Roll(CurrentMonster.DamageRoll).Value;
-            if (damageToPlayer == 0)
-            {
-                AddDisplayMessage("Monster Combat", "The monster attacks, but misses you.");
-            }
-            else
-            {
-                CurrentPlayer.TakeDamage(damageToPlayer);
-                AddDisplayMessage("Monster Combat", $"The {CurrentMonster.Name} hit you for {damageToPlayer} points.");
-            }
-            // If player is killed, move them back to their home.
+            // if monster is still alive, let the monster attack
+            message = CurrentMonster.UseCurrentWeaponOn(CurrentPlayer);
+            AddDisplayMessage(message);
+            // if player is killed, move them back to their home and heal.
             if (CurrentPlayer.IsDead)
             {
-                AddDisplayMessage("Player Defeated", $"The {CurrentMonster.Name} killed you.");
-                CurrentPlayer.CompletelyHeal();  // Completely heal the player
-                this.OnLocationChanged(_currentWorld.LocationAt(0, -1));  // Return to Player's home
+                OnCurrentPlayerKilled(CurrentMonster);
             }
         }
+    }
+
+    private void OnCurrentPlayerKilled(Monster currentMonster)
+    {
+        AddDisplayMessage("Player Defeated", $"The {currentMonster.Name} killed you.");
+        CurrentPlayer.CompletelyHeal();  // Completely heal the player
+        this.OnLocationChanged(_currentWorld.LocationAt(0, -1));  // Return to Player's home
+    }
+
+    private void OnCurrentMonsterKilled(Monster currentMonster)
+    {
+        var messageLines = new List<string>();
+        messageLines.Add($"You defeated the {currentMonster.Name}!");
+        CurrentPlayer.AddExperience(currentMonster.RewardExperiencePoints);
+        messageLines.Add($"You receive {currentMonster.RewardExperiencePoints} experience points.");
+        CurrentPlayer.ReceiveGold(currentMonster.Gold);
+        messageLines.Add($"You receive {currentMonster.Gold} gold.");
+        foreach (GameItem item in currentMonster.Inventory.Items)
+        {
+            CurrentPlayer.Inventory.AddItem(item);
+            messageLines.Add($"You received {item.Name}.");
+        }
+        AddDisplayMessage("Monster Defeated", messageLines);
     }
 
     private void GetMonsterAtCurrentLocation()
@@ -217,7 +220,11 @@ public class GameSession : IGameSession
 
     private void AddDisplayMessage(string title, IList<string> messages)
     {
-        var message = new DisplayMessage(title, messages);
+        AddDisplayMessage(new DisplayMessage(title, messages));
+    }
+
+    private void AddDisplayMessage(DisplayMessage message)
+    {
         this.Messages.Insert(0, message);
         if (Messages.Count > _maximumMessagesCount)
         {

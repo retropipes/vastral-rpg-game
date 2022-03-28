@@ -39,7 +39,7 @@ public class GameItem
     public IAction? Action { get; set; }
 
     public virtual GameItem Clone() =>
-        new GameItem(ItemTypeID, Category, Name, Price, IsUnique);
+        new GameItem(ItemTypeID, Category, Name, Price, IsUnique, Action);
 
     public DisplayMessage PerformAction(LivingEntity actor, LivingEntity target)
     {

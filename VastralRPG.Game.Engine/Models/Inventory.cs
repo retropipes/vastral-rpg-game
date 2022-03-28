@@ -50,17 +50,20 @@ public class Inventory
     {
         _ = item ?? throw new ArgumentNullException(nameof(item));
         _backingInventory.Remove(item);
-        GroupedInventoryItem? groupedInventoryItemToRemove =
-            _backingGroupedInventory.FirstOrDefault(gi => gi.Item == item);
-        if (groupedInventoryItemToRemove != null)
+        if (item.IsUnique == false)
         {
-            if (groupedInventoryItemToRemove.Quantity == 1)
+            GroupedInventoryItem? groupedInventoryItemToRemove =
+                _backingGroupedInventory.FirstOrDefault(gi => gi.Item.ItemTypeID == item.ItemTypeID);
+            if (groupedInventoryItemToRemove != null)
             {
-                _backingGroupedInventory.Remove(groupedInventoryItemToRemove);
-            }
-            else
-            {
-                groupedInventoryItemToRemove.Quantity--;
+                if (groupedInventoryItemToRemove.Quantity == 1)
+                {
+                    _backingGroupedInventory.Remove(groupedInventoryItemToRemove);
+                }
+                else
+                {
+                    groupedInventoryItemToRemove.Quantity--;
+                }
             }
         }
     }

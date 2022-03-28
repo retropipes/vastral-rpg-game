@@ -14,6 +14,9 @@ internal static class ItemFactory
     {
         BuildWeapon(1001, "Pointy Stick", 1, "1d2");
         BuildWeapon(1002, "Rusty Sword", 5, "1d3");
+        BuildWeapon(1501, "Snake fangs", 0, "1d2");
+        BuildWeapon(1502, "Rat claws", 0, "1d2");
+        BuildWeapon(1503, "Spider fangs", 0, "1d4");
         BuildMiscellaneousItem(9001, "Snake fang", 1);
         BuildMiscellaneousItem(9002, "Snakeskin", 2);
         BuildMiscellaneousItem(9003, "Rat tail", 1);
