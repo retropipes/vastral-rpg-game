@@ -9,6 +9,7 @@ public class GameSession : IGameSession
     private readonly World _currentWorld;
     private readonly IDiceService _diceService;
     private readonly int _maximumMessagesCount = 100;
+    private readonly Dictionary<string, Action> _userInputActions = new Dictionary<string, Action>();
 
     public Player CurrentPlayer { get; private set; }
 
@@ -33,6 +34,7 @@ public class GameSession : IGameSession
     public GameSession(IDiceService? diceService = null)
     {
         _diceService = diceService ?? DiceService.Instance;
+        InitializeUserInputActions();
         CurrentPlayer = new Player
         {
             Name = "RetroPipes",
@@ -49,11 +51,7 @@ public class GameSession : IGameSession
         GetMonsterAtCurrentLocation();
         if (!CurrentPlayer.Inventory.Weapons.Any())
         {
-            var pointyStick = ItemFactory.CreateGameItem(1001);
-            if (pointyStick != null)
-            {
-                CurrentPlayer.Inventory.AddItem(pointyStick);
-            }
+            CurrentPlayer.Inventory.AddItem(ItemFactory.CreateGameItem(1001));
         }
         CurrentPlayer.Inventory.AddItem(ItemFactory.CreateGameItem(2001));
         CurrentPlayer.LearnRecipe(RecipeFactory.GetRecipeById(1));
@@ -147,6 +145,16 @@ public class GameSession : IGameSession
                 lines.Add($"  {itemQuantity.Quantity} {ItemFactory.GetItemName(itemQuantity.ItemId)}");
             }
             AddDisplayMessage("Item Creation", lines);
+        }
+    }
+
+    public void ProcessKeyPress(KeyProcessingEventArgs args)
+    {
+        _ = args ?? throw new ArgumentNullException(nameof(args));
+        var key = args.Key.ToUpper();
+        if (_userInputActions.ContainsKey(key))
+        {
+            _userInputActions[key].Invoke();
         }
     }
 
@@ -251,6 +259,18 @@ public class GameSession : IGameSession
                 }
             }
         }
+    }
+
+    private void InitializeUserInputActions()
+    {
+        _userInputActions.Add("W", () => Movement.MoveNorth());
+        _userInputActions.Add("A", () => Movement.MoveWest());
+        _userInputActions.Add("S", () => Movement.MoveSouth());
+        _userInputActions.Add("D", () => Movement.MoveEast());
+        _userInputActions.Add("ARROWUP", () => Movement.MoveNorth());
+        _userInputActions.Add("ARROWLEFT", () => Movement.MoveWest());
+        _userInputActions.Add("ARROWDOWN", () => Movement.MoveSouth());
+        _userInputActions.Add("ARROWRIGHT", () => Movement.MoveEast());
     }
 
     private void AddDisplayMessage(string title, string message) =>
