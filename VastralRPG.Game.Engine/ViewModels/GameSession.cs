@@ -10,6 +10,7 @@ public class GameSession : IGameSession
     private readonly Battle _battle;
     private readonly int _maximumMessagesCount = 100;
     private readonly Dictionary<string, Action> _userInputActions = new Dictionary<string, Action>();
+    private readonly IDiceService _diceService = DiceService.Instance;
 
     public Player CurrentPlayer { get; private set; }
 
@@ -25,10 +26,11 @@ public class GameSession : IGameSession
 
     public IList<DisplayMessage> Messages { get; } = new List<DisplayMessage>();
 
-    public GameSession(int maxMessageCount)
+    public GameSession(int maxMessageCount, IDiceService? diceService = null)
         : this()
     {
         _maximumMessagesCount = maxMessageCount;
+        _diceService = diceService ?? DiceService.Instance;
     }
 
     public GameSession()
@@ -37,7 +39,8 @@ public class GameSession : IGameSession
         _currentWorld = WorldFactory.CreateWorld();
         _battle = new Battle(
                 () => OnLocationChanged(_currentWorld.GetHomeLocation()),  // Return to Player's home
-                () => GetMonsterAtCurrentLocation());  // Gets another monster
+                () => GetMonsterAtCurrentLocation(),  // Gets another monster
+                _diceService);
         CurrentPlayer = new Player
         {
             Name = "RetroPipes",
@@ -46,7 +49,10 @@ public class GameSession : IGameSession
             MaximumHitPoints = 10,
             Gold = 1000,
             ExperiencePoints = 0,
-            Level = 1
+            Level = 1,
+            Dexterity = _diceService.Roll(6, 3).Value,
+            Strength = _diceService.Roll(6, 3).Value,
+            ArmorClass = 10
         };
         Movement = new MovementUnit(_currentWorld);
         this.CurrentLocation = this.Movement.CurrentLocation;
