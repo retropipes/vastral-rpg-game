@@ -90,7 +90,7 @@ public class GameSession : IGameSession
         }
         else
         {
-            CurrentMonster.CurrentHitPoints -= damageToMonster;
+            CurrentMonster.TakeDamage(damageToMonster);
             AddDisplayMessage("Player Combat", $"You hit the {CurrentMonster.Name} for {damageToMonster} points.");
         }
 
@@ -99,9 +99,9 @@ public class GameSession : IGameSession
         {
             var messageLines = new List<string>();
             messageLines.Add($"You defeated the {CurrentMonster.Name}!");
-            CurrentPlayer.ExperiencePoints += CurrentMonster.RewardExperiencePoints;
+            CurrentPlayer.AddExperience(CurrentMonster.RewardExperiencePoints);
             messageLines.Add($"You receive {CurrentMonster.RewardExperiencePoints} experience points.");
-            CurrentPlayer.Gold += CurrentMonster.Gold;
+            CurrentPlayer.ReceiveGold(CurrentMonster.Gold);
             messageLines.Add($"You receive {CurrentMonster.Gold} gold.");
             foreach (GameItem item in CurrentMonster.Inventory.Items)
             {
@@ -122,14 +122,14 @@ public class GameSession : IGameSession
             }
             else
             {
-                CurrentPlayer.CurrentHitPoints -= damageToPlayer;
+                CurrentPlayer.TakeDamage(damageToPlayer);
                 AddDisplayMessage("Monster Combat", $"The {CurrentMonster.Name} hit you for {damageToPlayer} points.");
             }
             // If player is killed, move them back to their home.
             if (CurrentPlayer.CurrentHitPoints <= 0)
             {
                 AddDisplayMessage("Player Defeated", $"The {CurrentMonster.Name} killed you.");
-                CurrentPlayer.CurrentHitPoints = CurrentPlayer.MaximumHitPoints; // Completely heal the player
+                CurrentPlayer.CompletelyHeal();  // Completely heal the player
                 this.OnLocationChanged(_currentWorld.LocationAt(0, -1)); // Return to Player's home
             }
         }
@@ -203,9 +203,9 @@ public class GameSession : IGameSession
                     }
                     // give the player the quest rewards
                     var messageLines = new List<string>();
-                    CurrentPlayer.ExperiencePoints += quest.RewardExperiencePoints;
+                    CurrentPlayer.AddExperience(quest.RewardExperiencePoints);
                     messageLines.Add($"You receive {quest.RewardExperiencePoints} experience points");
-                    CurrentPlayer.Gold += quest.RewardGold;
+                    CurrentPlayer.ReceiveGold(quest.RewardGold);
                     messageLines.Add($"You receive {quest.RewardGold} gold");
                     foreach (ItemQuantity itemQuantity in quest.RewardItems)
                     {
