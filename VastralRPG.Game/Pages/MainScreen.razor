@@ -60,5 +60,13 @@
         }
     }
 
+    protected override void OnInitialized()
+    {
+        DisplayMessageBroker.Instance.OnMessageRaised += OnGameMessageRaised;
+    }
+
     protected void KeyDown(KeyboardEventArgs args) => ViewModel.ProcessKeyPress(args.ToKeyProcessingEventArgs());
+
+    private void OnGameMessageRaised(object? sender, DisplayMessage message) =>
+        ViewModel.AddDisplayMessage(message);
 }

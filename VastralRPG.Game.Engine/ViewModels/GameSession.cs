@@ -7,7 +7,7 @@ namespace VastralRPG.Game.Engine.ViewModels;
 public class GameSession : IGameSession
 {
     private readonly World _currentWorld;
-    private readonly IDiceService _diceService;
+    private readonly Battle _battle;
     private readonly int _maximumMessagesCount = 100;
     private readonly Dictionary<string, Action> _userInputActions = new Dictionary<string, Action>();
 
@@ -31,10 +31,13 @@ public class GameSession : IGameSession
         _maximumMessagesCount = maxMessageCount;
     }
 
-    public GameSession(IDiceService? diceService = null)
+    public GameSession()
     {
-        _diceService = diceService ?? DiceService.Instance;
         InitializeUserInputActions();
+        _currentWorld = WorldFactory.CreateWorld();
+        _battle = new Battle(
+                () => OnLocationChanged(_currentWorld.GetHomeLocation()),  // Return to Player's home
+                () => GetMonsterAtCurrentLocation());  // Gets another monster
         CurrentPlayer = new Player
         {
             Name = "RetroPipes",
@@ -45,7 +48,6 @@ public class GameSession : IGameSession
             ExperiencePoints = 0,
             Level = 1
         };
-        _currentWorld = WorldFactory.CreateWorld();
         Movement = new MovementUnit(_currentWorld);
         this.CurrentLocation = this.Movement.CurrentLocation;
         GetMonsterAtCurrentLocation();
@@ -73,36 +75,10 @@ public class GameSession : IGameSession
 
     public void AttackCurrentMonster(GameItem? currentWeapon)
     {
-        if (CurrentMonster is null)
+        if (CurrentMonster != null)
         {
-            return;
-        }
-        if (currentWeapon is null)
-        {
-            AddDisplayMessage("Combat Warning", "You must select a weapon, to attack.");
-            return;
-        }
-        // player acts monster with weapon
-        CurrentPlayer.CurrentWeapon = currentWeapon;
-        var message = CurrentPlayer.UseCurrentWeaponOn(CurrentMonster);
-        AddDisplayMessage(message);
-        // If monster if killed, collect rewards and loot
-        if (CurrentMonster.IsDead)
-        {
-            OnCurrentMonsterKilled(CurrentMonster);
-            // Get another monster to fight
-            GetMonsterAtCurrentLocation();
-        }
-        else
-        {
-            // if monster is still alive, let the monster attack
-            message = CurrentMonster.UseCurrentWeaponOn(CurrentPlayer);
-            AddDisplayMessage(message);
-            // if player is killed, move them back to their home and heal.
-            if (CurrentPlayer.IsDead)
-            {
-                OnCurrentPlayerKilled(CurrentMonster);
-            }
+            CurrentPlayer.CurrentWeapon = currentWeapon;
+            _battle.Attack(CurrentPlayer, CurrentMonster);
         }
     }
 
@@ -156,29 +132,6 @@ public class GameSession : IGameSession
         {
             _userInputActions[key].Invoke();
         }
-    }
-
-    private void OnCurrentPlayerKilled(Monster currentMonster)
-    {
-        AddDisplayMessage("Player Defeated", $"The {currentMonster.Name} killed you.");
-        CurrentPlayer.CompletelyHeal();  // Completely heal the player
-        this.OnLocationChanged(_currentWorld.LocationAt(0, -1));  // Return to Player's home
-    }
-
-    private void OnCurrentMonsterKilled(Monster currentMonster)
-    {
-        var messageLines = new List<string>();
-        messageLines.Add($"You defeated the {currentMonster.Name}!");
-        CurrentPlayer.AddExperience(currentMonster.RewardExperiencePoints);
-        messageLines.Add($"You receive {currentMonster.RewardExperiencePoints} experience points.");
-        CurrentPlayer.ReceiveGold(currentMonster.Gold);
-        messageLines.Add($"You receive {currentMonster.Gold} gold.");
-        foreach (GameItem item in currentMonster.Inventory.Items)
-        {
-            CurrentPlayer.Inventory.AddItem(item);
-            messageLines.Add($"You received {item.Name}.");
-        }
-        AddDisplayMessage("Monster Defeated", messageLines);
     }
 
     private void GetMonsterAtCurrentLocation()
