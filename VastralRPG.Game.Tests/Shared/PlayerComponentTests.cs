@@ -23,55 +23,71 @@ public class PlayerComponentTests
 @"    <table class=""b-table table table-sm table-borderless"">
       <thead>
         <tr>
-          <th scope=""col""  rowspan=""2"">
+          <th scope=""col"" rowspan=""2"">
             Player Data
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr >
-          <td >
+        <tr>
+          <td>
             Name:
           </td>
-          <td >
+          <td>
           </td>
         </tr>
-        <tr >
-          <td >
+        <tr>
+          <td>
             Class:
           </td>
-          <td >
+          <td>
           </td>
         </tr>
-        <tr >
-          <td >
+        <tr>
+          <td>
+            Strength:
+          </td>
+          <td>
+            10
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Dexterity:
+          </td>
+          <td>
+            10
+          </td>
+        </tr>
+        <tr>
+          <td>
             Hit points:
           </td>
-          <td >
+          <td>
             0
           </td>
         </tr>
-        <tr >
-          <td >
+        <tr>
+          <td>
             Gold:
           </td>
-          <td >
+          <td>
             0
           </td>
         </tr>
-        <tr >
-          <td >
+        <tr>
+          <td>
             XP:
           </td>
-          <td >
+          <td>
             0
           </td>
         </tr>
-        <tr >
-          <td >
+        <tr>
+          <td>
             Level:
           </td>
-          <td >
+          <td>
             0
           </td>
         </tr>
@@ -127,6 +143,22 @@ public class PlayerComponentTests
           </td>
           <td>
             TestClass
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Strength:
+          </td>
+          <td>
+            10
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Dexterity:
+          </td>
+          <td>
+            10
           </td>
         </tr>
         <tr>
