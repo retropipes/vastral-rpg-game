@@ -20,9 +20,9 @@ internal static class MonsterFactory
                     MaximumHitPoints = 4,
                     RewardExperiencePoints = 5,
                     Gold = 1,
-                    Dexterity = 15,
-                    Strength = 12,
-                    ArmorClass = 10
+                    Dexterity = 11,
+                    Strength = 5,
+                    ArmorClass = 8
                 };
                 rabbit.CurrentWeapon = ItemFactory.CreateGameItem(1501);
                 AddLootItem(rabbit, 9001, 25);
@@ -33,11 +33,11 @@ internal static class MonsterFactory
                 {
                     Name = "Turtle",
                     ImageName = "/images/monsters/turtle.png",
-                    CurrentHitPoints = 5,
-                    MaximumHitPoints = 5,
-                    RewardExperiencePoints = 5,
-                    Gold = 1,
-                    Dexterity = 8,
+                    CurrentHitPoints = 7,
+                    MaximumHitPoints = 7,
+                    RewardExperiencePoints = 10,
+                    Gold = 2,
+                    Dexterity = 6,
                     Strength = 10,
                     ArmorClass = 10
                 };
@@ -52,8 +52,8 @@ internal static class MonsterFactory
                     ImageName = "/images/monsters/shade.png",
                     CurrentHitPoints = 10,
                     MaximumHitPoints = 10,
-                    RewardExperiencePoints = 10,
-                    Gold = 3,
+                    RewardExperiencePoints = 15,
+                    Gold = 4,
                     Dexterity = 12,
                     Strength = 15,
                     ArmorClass = 12
