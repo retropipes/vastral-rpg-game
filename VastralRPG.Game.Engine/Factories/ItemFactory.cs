@@ -14,19 +14,20 @@ internal static class ItemFactory
     {
         BuildWeapon(1001, "Pointy Stick", 1, "1d2");
         BuildWeapon(1002, "Rusty Sword", 5, "1d3");
-        BuildWeapon(1501, "Snake fangs", 0, "1d2");
-        BuildWeapon(1502, "Rat claws", 0, "1d2");
-        BuildWeapon(1503, "Spider fangs", 0, "1d4");
+        BuildWeapon(1003, "Wooden Club", 11, "1d4");
+        BuildWeapon(1501, "Rabbit paws", 0, "1d2");
+        BuildWeapon(1502, "Turtle bite", 0, "1d3");
+        BuildWeapon(1503, "Shade touch", 0, "1d4");
         BuildHealingItem(2001, "Granola bar", 5, 2);
         BuildMiscellaneousItem(3001, "Oats", 1);
         BuildMiscellaneousItem(3002, "Honey", 2);
         BuildMiscellaneousItem(3003, "Raisins", 2);
-        BuildMiscellaneousItem(9001, "Snake fang", 1);
-        BuildMiscellaneousItem(9002, "Snakeskin", 2);
-        BuildMiscellaneousItem(9003, "Rat tail", 1);
-        BuildMiscellaneousItem(9004, "Rat fur", 2);
-        BuildMiscellaneousItem(9005, "Spider fang", 1);
-        BuildMiscellaneousItem(9006, "Spider silk", 2);
+        BuildMiscellaneousItem(9001, "Rabbit tail", 1);
+        BuildMiscellaneousItem(9002, "Rabbit fur", 2);
+        BuildMiscellaneousItem(9003, "Turtle shell", 1);
+        BuildMiscellaneousItem(9004, "Turtle egg", 2);
+        BuildMiscellaneousItem(9005, "Shade mist", 1);
+        BuildMiscellaneousItem(9006, "Shade ooze", 2);
     }
 
     public static GameItem CreateGameItem(int itemTypeID)
