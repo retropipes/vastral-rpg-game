@@ -12,7 +12,7 @@ internal static class WorldFactory
                     XCoordinate = -2,
                     YCoordinate = -1,
                     Name = "Farmer's Field",
-                    Description = "There are rows of corn growing here, with giant rats hiding between them.",
+                    Description = "There are rows of corn growing here, with turtles hiding between them.",
                     ImageName = "/images/locations/farm-fields.png"
                 },
                 new Location
@@ -80,7 +80,7 @@ internal static class WorldFactory
                     XCoordinate = 0,
                     YCoordinate = 2,
                     Name = "Herbalist's Garden",
-                    Description = "There are many plants here, with snakes hiding behind them.",
+                    Description = "There are many plants here, with rabbits hiding behind them.",
                     ImageName = "/images/locations/HerbalistsGarden.png"
                 },
             };
