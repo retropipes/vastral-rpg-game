@@ -21,6 +21,8 @@
                 "publish",
                 "-c",
                 "Release",
+                "-o",
+                ".",
                 "${workspaceFolder}/VastralRPG.Game/VastralRPG.Game.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
