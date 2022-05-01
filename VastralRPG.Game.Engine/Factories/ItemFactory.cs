@@ -12,12 +12,12 @@ internal static class ItemFactory
 
     static ItemFactory()
     {
-        BuildWeapon(1001, "Pointy Stick", 1, "1d2");
-        BuildWeapon(1002, "Rusty Sword", 5, "1d3");
-        BuildWeapon(1003, "Wooden Club", 11, "1d4");
-        BuildWeapon(1501, "Rabbit paws", 0, "1d2");
-        BuildWeapon(1502, "Turtle bite", 0, "1d3");
-        BuildWeapon(1503, "Shade touch", 0, "1d4");
+        BuildPlayerWeapon(1001, "Pointy Stick", 1, "1d2", "/images/items/pointy-stick.png");
+        BuildPlayerWeapon(1002, "Rusty Sword", 5, "1d3", "/images/items/rusty-sword.png");
+        BuildPlayerWeapon(1003, "Wooden Hammer", 11, "1d4", "/images/items/wooden-hammer.png");
+        BuildMonsterWeapon(1501, "Rabbit paws", 0, "1d2");
+        BuildMonsterWeapon(1502, "Turtle bite", 0, "1d3");
+        BuildMonsterWeapon(1503, "Shade touch", 0, "1d4");
         BuildHealingItem(2001, "Granola bar", 5, 2);
         BuildMiscellaneousItem(3001, "Oats", 1);
         BuildMiscellaneousItem(3002, "Honey", 2);
@@ -47,7 +47,14 @@ internal static class ItemFactory
         _standardGameItems.Add(new GameItem(id, GameItem.ItemCategory.Miscellaneous, name, price));
     }
 
-    private static void BuildWeapon(int id, string name, int price, string damageDice)
+    private static void BuildPlayerWeapon(int id, string name, int price, string damageDice, string imageName)
+    {
+        var weapon = new GameItem(id, GameItem.ItemCategory.Weapon, name, price, imageName, true);
+        weapon.Action = new Attack(weapon, damageDice);
+        _standardGameItems.Add(weapon);
+    }
+
+    private static void BuildMonsterWeapon(int id, string name, int price, string damageDice)
     {
         var weapon = new GameItem(id, GameItem.ItemCategory.Weapon, name, price, true);
         weapon.Action = new Attack(weapon, damageDice);

@@ -26,6 +26,7 @@
                                 <TableHeaderCell>Name</TableHeaderCell>
                                 <TableHeaderCell Class="text-center">Qty</TableHeaderCell>
                                 <TableHeaderCell Class="text-center">Price</TableHeaderCell>
+                                <TableHeaderCell Class="text-center">Image</TableHeaderCell>
                                 <TableHeaderCell />
                             </TableHeader>
                             <TableBody>
@@ -37,6 +38,16 @@
                                             <TableRowCell>@item.Item.Name</TableRowCell>
                                             <TableRowCell Class="text-center">@item.Quantity</TableRowCell>
                                             <TableRowCell Class="text-center">@item.Item.Price</TableRowCell>
+                                            @if (ItemHasImage(item.Item))
+                                            {
+                                                <TableRowCell Class="text-center">
+                                                    <img src="@item.Item.ImageName" alt="Item Image" />
+                                                </TableRowCell>
+                                            }
+                                            else
+                                            {
+                                                <TableRowCell Class="text-center">&nbsp;</TableRowCell>
+                                            }
                                             <TableRowCell Class="text-center">
                                                 <Button id="sell-item-btn" Size="Size.Small" Color="Color.Secondary"
                                         Outline="true" Clicked="() => ViewModel.OnSellItem(item.Item)">
@@ -106,5 +117,10 @@
         ViewModel.Player = Player;
         ViewModel.Trader = Trader;
         ViewModel.InventoryChanged = InventoryChanged;
+    }
+
+    private bool ItemHasImage(GameItem item)
+    {
+        return !string.IsNullOrEmpty(item.ImageName);
     }
 }

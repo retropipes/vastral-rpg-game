@@ -23,6 +23,17 @@ public class GameItem
         Action = action;
     }
 
+    public GameItem(int itemTypeID, ItemCategory category, string name, int price, string image, bool isUnique = false, IAction? action = null)
+    {
+        ItemTypeID = itemTypeID;
+        Category = category;
+        Name = name;
+        Price = price;
+        IsUnique = isUnique;
+        Action = action;
+        ImageName = image;
+    }
+
     public GameItem()
     {
     }
@@ -38,6 +49,8 @@ public class GameItem
     public bool IsUnique { get; set; }
 
     public IAction? Action { get; set; }
+
+    public string ImageName { get; set; } = string.Empty;
 
     public virtual GameItem Clone() =>
         new GameItem(ItemTypeID, Category, Name, Price, IsUnique, Action);
