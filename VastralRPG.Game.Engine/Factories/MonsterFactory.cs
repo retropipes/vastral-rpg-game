@@ -12,10 +12,10 @@ internal static class MonsterFactory
         switch (monsterID)
         {
             case 1:
-                Monster snake = new Monster
+                Monster rabbit = new Monster
                 {
-                    Name = "Snake",
-                    ImageName = "/images/monsters/Snake.png",
+                    Name = "Rabbit",
+                    ImageName = "/images/monsters/rabbit.png",
                     CurrentHitPoints = 4,
                     MaximumHitPoints = 4,
                     RewardExperiencePoints = 5,
@@ -24,15 +24,15 @@ internal static class MonsterFactory
                     Strength = 12,
                     ArmorClass = 10
                 };
-                snake.CurrentWeapon = ItemFactory.CreateGameItem(1501);
-                AddLootItem(snake, 9001, 25);
-                AddLootItem(snake, 9002, 75);
-                return snake;
+                rabbit.CurrentWeapon = ItemFactory.CreateGameItem(1501);
+                AddLootItem(rabbit, 9001, 25);
+                AddLootItem(rabbit, 9002, 75);
+                return rabbit;
             case 2:
-                Monster rat = new Monster
+                Monster turtle = new Monster
                 {
-                    Name = "Rat",
-                    ImageName = "/images/monsters/Rat.png",
+                    Name = "Turtle",
+                    ImageName = "/images/monsters/turtle.png",
                     CurrentHitPoints = 5,
                     MaximumHitPoints = 5,
                     RewardExperiencePoints = 5,
@@ -41,15 +41,15 @@ internal static class MonsterFactory
                     Strength = 10,
                     ArmorClass = 10
                 };
-                rat.CurrentWeapon = ItemFactory.CreateGameItem(1502);
-                AddLootItem(rat, 9003, 25);
-                AddLootItem(rat, 9004, 75);
-                return rat;
+                turtle.CurrentWeapon = ItemFactory.CreateGameItem(1503);
+                AddLootItem(turtle, 9005, 25);
+                AddLootItem(turtle, 9006, 75);
+                return turtle;
             case 3:
-                Monster giantSpider = new Monster
+                Monster shade = new Monster
                 {
-                    Name = "Giant Spider",
-                    ImageName = "/images/monsters/GiantSpider.png",
+                    Name = "Shade",
+                    ImageName = "/images/monsters/shade.png",
                     CurrentHitPoints = 10,
                     MaximumHitPoints = 10,
                     RewardExperiencePoints = 10,
@@ -58,10 +58,10 @@ internal static class MonsterFactory
                     Strength = 15,
                     ArmorClass = 12
                 };
-                giantSpider.CurrentWeapon = ItemFactory.CreateGameItem(1503);
-                AddLootItem(giantSpider, 9005, 25);
-                AddLootItem(giantSpider, 9006, 75);
-                return giantSpider;
+                shade.CurrentWeapon = ItemFactory.CreateGameItem(1502);
+                AddLootItem(shade, 9003, 25);
+                AddLootItem(shade, 9004, 75);
+                return shade;
             default:
                 throw new ArgumentOutOfRangeException(nameof(monsterID));
         }

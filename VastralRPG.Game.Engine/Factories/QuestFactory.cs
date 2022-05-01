@@ -18,7 +18,7 @@ internal static class QuestFactory
         {
             Id = 1,
             Name = "Clear the herb garden",
-            Description = "Defeat the snakes in the Herbalist's garden",
+            Description = "Defeat the rabbits in the Herbalist's garden",
             ItemsToComplete = itemsToComplete,
             RewardGold = 25,
             RewardExperiencePoints = 10,
