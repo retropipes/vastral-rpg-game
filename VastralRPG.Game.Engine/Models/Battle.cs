@@ -99,8 +99,10 @@ public class Battle
 
     private void OnOpponentKilled(Player player, Monster opponent)
     {
-        var messageLines = new List<string>();
-        messageLines.Add($"You defeated the {opponent.Name}!");
+        var messageLines = new List<string>
+        {
+            $"You defeated the {opponent.Name}!"
+        };
         player.AddExperience(opponent.RewardExperiencePoints);
         messageLines.Add($"You receive {opponent.RewardExperiencePoints} experience points.");
         player.ReceiveGold(opponent.Gold);

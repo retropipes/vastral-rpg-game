@@ -9,7 +9,7 @@ public class GameSession : IGameSession
     private readonly World _currentWorld;
     private readonly Battle _battle;
     private readonly int _maximumMessagesCount = 100;
-    private readonly Dictionary<string, Action> _userInputActions = new Dictionary<string, Action>();
+    private readonly Dictionary<string, Action> _userInputActions = new();
     private readonly IDiceService _diceService = DiceService.Instance;
 
     public Player CurrentPlayer { get; private set; }
@@ -134,9 +134,9 @@ public class GameSession : IGameSession
     {
         _ = args ?? throw new ArgumentNullException(nameof(args));
         var key = args.Key.ToUpper();
-        if (_userInputActions.ContainsKey(key))
+        if (_userInputActions.TryGetValue(key, out Action? value))
         {
-            _userInputActions[key].Invoke();
+            value?.Invoke();
         }
     }
 

@@ -2,8 +2,8 @@ namespace VastralRPG.Game.Engine.Models;
 
 public class Inventory
 {
-    private readonly List<GameItem> _backingInventory = new List<GameItem>();
-    private readonly List<GroupedInventoryItem> _backingGroupedInventory = new List<GroupedInventoryItem>();
+    private readonly List<GameItem> _backingInventory = new();
+    private readonly List<GroupedInventoryItem> _backingGroupedInventory = new();
 
     public Inventory(IEnumerable<GameItem> items)
     {

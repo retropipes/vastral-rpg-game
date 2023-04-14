@@ -8,7 +8,7 @@ namespace VastralRPG.Game.Engine.Factories;
 
 internal static class ItemFactory
 {
-    private static readonly List<GameItem> _standardGameItems = new List<GameItem>();
+    private static readonly List<GameItem> _standardGameItems = new();
 
     static ItemFactory()
     {
@@ -63,7 +63,7 @@ internal static class ItemFactory
 
     private static void BuildHealingItem(int id, string name, int price, int hitPointsToHeal)
     {
-        GameItem item = new GameItem(id, GameItem.ItemCategory.Consumable, name, price);
+        GameItem item = new(id, GameItem.ItemCategory.Consumable, name, price);
         item.Action = new Heal(item, hitPointsToHeal);
         _standardGameItems.Add(item);
     }

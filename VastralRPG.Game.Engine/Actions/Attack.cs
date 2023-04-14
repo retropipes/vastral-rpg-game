@@ -5,13 +5,12 @@ namespace VastralRPG.Game.Engine.Actions;
 
 public class Attack : IAction
 {
-    private readonly GameItem _itemInUse;
     private readonly IDiceService _diceService;
     private readonly string _damageDice;
 
     public Attack(GameItem itemInUse, string damageDice, IDiceService? diceService = null)
     {
-        _itemInUse = itemInUse ?? throw new ArgumentNullException(nameof(itemInUse));
+        ArgumentNullException.ThrowIfNull(itemInUse);
         _diceService = diceService ?? DiceService.Instance;
         if (itemInUse.Category != GameItem.ItemCategory.Weapon)
         {

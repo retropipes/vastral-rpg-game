@@ -11,7 +11,7 @@ public class GameItem
         Consumable
     }
 
-    public static readonly GameItem Empty = new GameItem();
+    public static readonly GameItem Empty = new();
 
     public GameItem(int itemTypeID, ItemCategory category, string name, int price, bool isUnique = false, IAction? action = null)
     {
@@ -53,7 +53,7 @@ public class GameItem
     public string ImageName { get; set; } = string.Empty;
 
     public virtual GameItem Clone() =>
-        new GameItem(ItemTypeID, Category, Name, Price, IsUnique, Action);
+        new(ItemTypeID, Category, Name, Price, IsUnique, Action);
 
     public DisplayMessage PerformAction(LivingEntity actor, LivingEntity target)
     {

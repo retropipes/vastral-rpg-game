@@ -12,7 +12,7 @@ internal static class MonsterFactory
         switch (monsterID)
         {
             case 1:
-                Monster rabbit = new Monster
+                Monster rabbit = new()
                 {
                     Name = "Rabbit",
                     ImageName = "/images/monsters/rabbit.png",
@@ -22,14 +22,14 @@ internal static class MonsterFactory
                     Gold = 1,
                     Dexterity = 11,
                     Strength = 5,
-                    ArmorClass = 8
+                    ArmorClass = 8,
+                    CurrentWeapon = ItemFactory.CreateGameItem(1501)
                 };
-                rabbit.CurrentWeapon = ItemFactory.CreateGameItem(1501);
                 AddLootItem(rabbit, 9001, 25);
                 AddLootItem(rabbit, 9002, 75);
                 return rabbit;
             case 2:
-                Monster turtle = new Monster
+                Monster turtle = new()
                 {
                     Name = "Turtle",
                     ImageName = "/images/monsters/turtle.png",
@@ -39,14 +39,14 @@ internal static class MonsterFactory
                     Gold = 2,
                     Dexterity = 6,
                     Strength = 10,
-                    ArmorClass = 10
+                    ArmorClass = 10,
+                    CurrentWeapon = ItemFactory.CreateGameItem(1503)
                 };
-                turtle.CurrentWeapon = ItemFactory.CreateGameItem(1503);
                 AddLootItem(turtle, 9005, 25);
                 AddLootItem(turtle, 9006, 75);
                 return turtle;
             case 3:
-                Monster shade = new Monster
+                Monster shade = new()
                 {
                     Name = "Shade",
                     ImageName = "/images/monsters/shade.png",
@@ -56,9 +56,9 @@ internal static class MonsterFactory
                     Gold = 4,
                     Dexterity = 12,
                     Strength = 15,
-                    ArmorClass = 12
+                    ArmorClass = 12,
+                    CurrentWeapon = ItemFactory.CreateGameItem(1502)
                 };
-                shade.CurrentWeapon = ItemFactory.CreateGameItem(1502);
                 AddLootItem(shade, 9003, 25);
                 AddLootItem(shade, 9004, 75);
                 return shade;

@@ -9,8 +9,8 @@ internal static class QuestFactory
     static QuestFactory()
     {
         // Declare the items need to complete the quest, and its reward items
-        List<ItemQuantity> itemsToComplete = new List<ItemQuantity>();
-        List<ItemQuantity> rewardItems = new List<ItemQuantity>();
+        List<ItemQuantity> itemsToComplete = new();
+        List<ItemQuantity> rewardItems = new();
         itemsToComplete.Add(new ItemQuantity { ItemId = 9001, Quantity = 5 });
         rewardItems.Add(new ItemQuantity { ItemId = 1002, Quantity = 1 });
         // Create the quest

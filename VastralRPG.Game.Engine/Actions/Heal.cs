@@ -4,12 +4,11 @@ namespace VastralRPG.Game.Engine.Actions;
 
 public class Heal : IAction
 {
-    private readonly GameItem _item;
     private readonly int _hitPointsToHeal;
 
     public Heal(GameItem item, int hitPointsToHeal)
     {
-        _item = item ?? throw new ArgumentNullException(nameof(item));
+        ArgumentNullException.ThrowIfNull(item);
         if (item.Category != GameItem.ItemCategory.Consumable)
         {
             throw new ArgumentException($"{item.Name} is not consumable");

@@ -6,7 +6,7 @@ namespace VastralRPG.Game.Engine.Factories;
 
 internal static class TraderFactory
 {
-    private static readonly List<Trader> _traders = new List<Trader>();
+    private static readonly List<Trader> _traders = new();
 
     static TraderFactory()
     {
@@ -19,7 +19,7 @@ internal static class TraderFactory
 
     private static Trader CreateTrader(int id, string name)
     {
-        Trader t = new Trader
+        Trader t = new()
         {
             Id = id,
             Name = name,

@@ -4,11 +4,11 @@ namespace VastralRPG.Game.Engine.Factories;
 
 internal static class RecipeFactory
 {
-    private static readonly List<Recipe> _recipes = new List<Recipe>();
+    private static readonly List<Recipe> _recipes = new();
 
     static RecipeFactory()
     {
-        Recipe granolaBar = new Recipe(1, "Granola bar recipe");
+        Recipe granolaBar = new(1, "Granola bar recipe");
         granolaBar.AddIngredient(3001, 1);
         granolaBar.AddIngredient(3002, 1);
         granolaBar.AddIngredient(3003, 1);
