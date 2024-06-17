@@ -1,5 +1,6 @@
-using D20Tek.DiceNotation;
-using D20Tek.DiceNotation.DieRoller;
+using d20Tek.DiceNotation;
+using d20Tek.DiceNotation.DieRoller;
+using d20Tek.DiceNotation.Results;
 using System;
 
 namespace VastralRPG.Game.Engine.Services;
